@@ -7,6 +7,7 @@
 
 python3 arelleCmdLine.py --packages +UK-ALL-2009-09-01-package.zip
 python3 arelleCmdLine.py --packages +ie-all-2012-12-01.zip
+python3 arelleCmdLine.py --packages +daims_v1.01.06_2017-05-31.zip
 
 # run the server
 python3 arelleCmdLine.py --webserver 0.0.0.0:8080

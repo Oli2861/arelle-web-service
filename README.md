@@ -1,7 +1,20 @@
-### Arelle 
+### How to reproduec
+1. `docker build . -t arelle-demo:daims-zip`
+1. `docker run arelle-demo:daims-zip -p 8080`
+1. `docker ps` - see container name or id
+1. `docker exec -t -i <container name or id> /bin/sh`
+1. `arelleCmdLine -f /app/AppropriationsAccountPackage.xbrl -v --plugins xbrlDB --store-to-XBRL-DB "localhost,5432,user,111111,test_db,600,pgSemantic"`
 
-This container packages a slightly patched version of the Arelle open source project - cf [PR #75](https://github.com/Arelle/Arelle/pull/75) and [PR #76](https://github.com/Arelle/Arelle/pull/76)
+Expected result `AppropriationsAccountPackage.xbrl` imported into postgres db
+Actual result container consumed a lot of memory and finally `Killed`
 
-The container also pulls in the UK GAAP 2012 iXBRL taxonomy and the Irish extension for the same.
+Http request with AppropriationsAccountPackage.xbrl works from time to time (but consumes about 7.5Gb) 
+```
+GET http://localhost:8080/rest/xbrl/view?file=/app/AppropriationsAccountPackage.xbrl&view=factTable&media=html     
+```
 
-The docker setup script loads these taxonomies by default.
+Http request with FinancialAccountPackage.xbrl holds forever 
+```
+GET http://localhost:8080/rest/xbrl/view?file=/app/FinancialAccountPackage.xbrl&view=factTable&media=html     
+```
+  
