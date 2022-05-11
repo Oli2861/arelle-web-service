@@ -1,8 +1,10 @@
-FROM python:3.5-alpine
-
-ENV GITHUB_ARELLE https://github.com/Arelle/Arelle.git
+FROM python:3.9-alpine
 
 EXPOSE 8080
+
+# Official Arelle github repo
+ENV GITHUB_ARELLE https://github.com/Arelle/Arelle.git
+
 
 RUN apk add --update \
   build-base \
@@ -11,22 +13,26 @@ RUN apk add --update \
   git \
   && rm -rf /var/cache/apk/*
 
+# Install pip
 RUN pip3 install --upgrade pip
 
-RUN pip3 install lxml openPyXL rdflib pg8000
+# Install Arelle dependencies
+RUN pip3 install lxml numpy isodate regex openpyxl pyparsing six tornado matplotlib rdflib 
+RUN pip3 install python-dateutil
 
+# Make app directory
 RUN mkdir app
 
+# "cd" to app
 WORKDIR app
 
-RUN git clone --recursive $GITHUB_ARELLE . && git checkout 4211c6222626309e4167888059c4f97e8b579b1c && python3 setup.py install
+# Pull from Arelle gh repo
+RUN git clone --recursive $GITHUB_ARELLE . && git checkout 0baf5b2efd6717f4ddbea9e8712be9040a2604cf && python3 setup.py install
 
-COPY taxonomies .
-COPY report .
+# Copy taxonomies and docker-setup.sh
+COPY taxonomies /taxonomies/
 COPY docker-setup.sh .
-RUN unzip AppropriationsAccountPackage.zip -q
-RUN unzip FinancialAccountPackage.zip -q
 
+# Run docker-setup.sh script
 ENTRYPOINT ["/bin/sh"]
-
 CMD ["docker-setup.sh"]

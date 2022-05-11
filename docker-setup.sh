@@ -5,9 +5,12 @@
 # localhost:8080/rest/configure?packages=show
 # localhost:8080/rest/xbrl/validation?file=/taxonomies/vincent-ruane-builders-ltd-current-year-xbrl.html&media=json
 
-python3 arelleCmdLine.py --packages +UK-ALL-2009-09-01-package.zip
-python3 arelleCmdLine.py --packages +ie-all-2012-12-01.zip
-python3 arelleCmdLine.py --packages +daims_v1.01.06_2017-05-31.zip
+# Wont work for some reason
+#python3 arelleCmdLine.py --packages=app/taxonomies/esef_taxonomy_2021.zip
+#python3 arelleCmdLine.py --packages=/app/taxonomies/esef_taxonomy_2021.zip
+#python3 arelleCmdLine.py --packages=/taxonomies/esef_taxonomy_2021.zip
+#python3 arelleCmdLine.py --packages=+/app/taxonomies/esef_taxonomy_2021.zip
+#python3 arelleCmdLine.py --packages=+/taxonomies/esef_taxonomy_2021.zip
 
 # run the server
 python3 arelleCmdLine.py --webserver 0.0.0.0:8080
