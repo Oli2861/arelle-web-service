@@ -21,10 +21,10 @@ RUN pip3 install lxml numpy isodate regex openpyxl pyparsing six tornado matplot
 RUN pip3 install python-dateutil
 
 # Make app directory
-RUN mkdir app
+RUN mkdir arelle
 
 # "cd" to app
-WORKDIR app
+WORKDIR arelle
 
 # Pull from Arelle gh repo
 RUN git clone --recursive $GITHUB_ARELLE . && git checkout 0baf5b2efd6717f4ddbea9e8712be9040a2604cf && python3 setup.py install
